@@ -16,11 +16,8 @@ namespace Calculator {
 			}
 
 			int index1 = rand.Next(intArray.Length);
-			//index1 = intArray.Length - 2; 
 			int index2 = rand.Next(intArray.Length);
-			//index2 = intArray.Length - 1;
 
-			//Warning: int overflow may be there
 			int targetSum = intArray[index1] + intArray[index2];
 
 			try {
@@ -39,42 +36,15 @@ namespace Calculator {
 		}
 
 		private static Tuple<int, int> CalculateIndexesForSum_Brute(int[] intArray, int targetSum) {
-			//var iterations = 0;
 			for (int i = 0; i < intArray.Length; i++) {
 				var remainder = targetSum - intArray[i]; // this replaces two number addition in inner loop with comparison
 				for (int j = i; j < intArray.Length; j++) {
-					//iterations++;
-					//if (iterations % 100000 == 0) {
-					//	Console.WriteLine("Iteration {0}", iterations);
-					//}
 					if (intArray[j] == remainder) {
-						//Console.WriteLine("Found after {0} iterations (with {1} as n^2/2)", iterations, 
-						//		intArray.Length * intArray.Length / 2);
 						return Tuple.Create(i, j);
 					}
 				}
 			}
 			throw new Exception("No indexes have been found");
 		}
-
-		private static Tuple<int, int> CalculateIndexesForSum_Sort(int[] intArray, int targetSum) {
-			var iterations = 0;
-			for (int i = 0; i < intArray.Length; i++) {
-				var remainder = targetSum - intArray[i]; // this replaces two number addition in inner loop with comparison
-				for (int j = i; j < intArray.Length; j++) {
-					iterations++;
-					if (iterations % 100000 == 0) {
-						Console.WriteLine("Iteration {0}", iterations);
-					}
-					if (intArray[j] == remainder) {
-						Console.WriteLine("Found after {0} iterations (with {1} as n^2/2)", iterations,
-								intArray.Length * intArray.Length / 2);
-						return Tuple.Create(i, j);
-					}
-				}
-			}
-			throw new Exception(String.Format("No indexes have been found after {0} iterations", iterations));
-		}
-
 	}
 }
