@@ -26,12 +26,12 @@ namespace Calculator {
 			int targetSum = intArray[index1] + intArray[index2];
 
 			try {
-				Console.WriteLine("Lookup algoritms estimation");
+				Console.WriteLine("Lookup algoritms comparison (array with {0} elements)", intArray.Length);
 
 				EstimateAlgorithm(intArray, index1, index2, targetSum, CalculateIndexesForSum_Brute, "Brute lookup");
 				EstimateAlgorithm(intArray, index1, index2, targetSum, CalculateIndexesForSum_Hashes, "Hashes lookup");
 
-				Console.WriteLine("Press Enter to continue...");
+				Console.WriteLine("\nPress Enter to continue...");
 				Console.ReadLine();
 			}
 			catch (Exception ex) {
@@ -40,13 +40,14 @@ namespace Calculator {
 		}
 
 		private static void EstimateAlgorithm(int[] intArray, int index1, int index2, int targetSum, 
-				Func<int[], int, Tuple<int, int>> calculator, string p) {
+				Func<int[], int, Tuple<int, int>> calculator, string name) {
+			Console.WriteLine("\n{0}...", name);
 			var start = DateTime.Now;
 			Tuple<int, int> indexes = calculator(intArray, targetSum);
 			var duration = DateTime.Now - start;
-			Console.WriteLine("\nTime to calculate: {0} msec(s)", duration.TotalMilliseconds);
+			Console.WriteLine("Time to calculate: {0} msec(s)", duration.TotalMilliseconds);
 			Console.WriteLine("Expected\tindex1 - {0}\tindex2 - {1}\ttargetSum: {2}", index1, index2, targetSum);
-			Console.WriteLine("Brute lookup\tindex1 - {0}\tindex2 - {1}\tconrolSum: {2}", indexes.Item1, indexes.Item2,
+			Console.WriteLine("Calculated\tindex1 - {0}\tindex2 - {1}\tconrolSum: {2}", indexes.Item1, indexes.Item2,
 					intArray[indexes.Item1] + intArray[indexes.Item2]);
 		}
 
