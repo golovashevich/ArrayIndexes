@@ -16,7 +16,7 @@ namespace Calculator {
 			int index1 = rand.Next(intArray.Length);
 			int index2 = rand.Next(intArray.Length);
 
-			//worth case for brute
+			//The worst case for brute
 			index1 = intArray.Length - 2;
 			index2 = intArray.Length - 1;
 
@@ -49,6 +49,9 @@ namespace Calculator {
 			}
 		}
 
+		/// <summary>
+		/// Does not use additional memory, the slowest; complexity is n * n / 2
+		/// </summary>
 		private static Tuple<int, int> CalculateIndexesForSum_Brute(int[] intArray, int targetSum) {
 			for (int i = 0; i < intArray.Length; i++) {
 				var remainder = targetSum - intArray[i]; // this replaces two number addition in inner loop with comparison
@@ -61,6 +64,9 @@ namespace Calculator {
 			throw new Exception("No indexes have been found");
 		}
 
+		/// <summary>
+		/// Uses additional memory (about size of the intArray - minus duplicates), but the fastest
+		/// </summary>
 		private static Tuple<int, int> CalculateIndexesForSum_Hashes(int[] intArray, int targetSum) {
 			var hashes = new HashSet<int>(intArray);
 			for (int i = 0; i < intArray.Length; i++) {
@@ -78,7 +84,8 @@ namespace Calculator {
 		}
 
 		/// <summary>
-		/// Warning: modifies (sorts) the original array, so its better to run this algorithm in the last turn
+		/// Does not use additional memory, slightly slower than with hashes
+		/// Warning: modifies (sorts) the original array, so it's better to run this algorithm in the last turn
 		/// </summary>
 		private static Tuple<int, int> CalculateIndexesForSum_Sorted(int[] intArray, int targetSum) {
 			Array.Sort(intArray);
